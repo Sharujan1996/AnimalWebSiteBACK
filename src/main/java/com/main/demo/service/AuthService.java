@@ -29,7 +29,7 @@ public class AuthService {
             .orElseThrow(() -> new BadCredentialsException("Email ou mot de passe incorrect"));
 
               // On peut stocker des rôles ici si besoin
-              return jwtService.generateToken(email);
+              return jwtService.generateToken(u);
               
         } catch (DataAccessException e) {
     	      throw new RepositoryException("Erreur d'accès au repository pour l'email : " + email, e);

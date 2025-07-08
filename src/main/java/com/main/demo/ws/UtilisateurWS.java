@@ -19,6 +19,7 @@ import com.main.demo.domain.Utilisateur;
 import com.main.demo.entity.UtilisateurEntity;
 import com.main.demo.mapper.UtilisateurMapper;
 import com.main.demo.repository.UtilisateurRepository;
+import com.main.demo.service.JwtService;
 import com.main.demo.service.UtilisateurService;
 
 
@@ -34,6 +35,9 @@ public class UtilisateurWS {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private JwtService jwtService;
 	
 	@GetMapping("/{id}")
 	public Utilisateur getUserById(@PathVariable Long id) {
@@ -53,8 +57,9 @@ public class UtilisateurWS {
 		  String hash = encoder.encode(utilisateur.getMotDePasse());
 		  UtilisateurEntity utilisateurEntity = UtilisateurMapper.domainToEntity(utilisateur , hash);
 		  UtilisateurEntity savedEntity = utilisateurRepository.save(utilisateurEntity);
-		  Utilisateur userSaved = UtilisateurMapper.entityToDomain(savedEntity);
-		  return ResponseEntity.status(HttpStatus.OK).body(userSaved);
+		  String token = jwtService.generateToken(savedEntity);
+		  Map<String, String> response = Map.of("accessToken" , token);
+		  return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	@PutMapping("/{id}")
