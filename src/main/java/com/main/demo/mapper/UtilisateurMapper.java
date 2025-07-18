@@ -1,6 +1,7 @@
 package com.main.demo.mapper;
 
 import com.main.demo.domain.Utilisateur;
+import com.main.demo.domain.UtilisateurUpdated;
 import com.main.demo.entity.UtilisateurEntity;
 
 public final class UtilisateurMapper {
@@ -12,6 +13,7 @@ public final class UtilisateurMapper {
 		}
 		
 		Utilisateur domain = new Utilisateur();
+		domain.setId(entity.getId());
 		domain.setNom(entity.getNom());
 		domain.setPrenom(entity.getPrenom());
 		domain.setEmail(entity.getEmail());
@@ -35,6 +37,28 @@ public final class UtilisateurMapper {
 		entity.setTelephone(domain.getTelephone()!=null ? domain.getTelephone():null);
 		entity.setMotDePasse(domain.getMotDePasse());
 		entity.setDateDeNaissance(domain.getDateDeNaissance());
+		return entity;
+	}
+	
+	public static UtilisateurEntity domainToEntityForUpdate(UtilisateurUpdated domain , UtilisateurEntity entity) {
+		if(domain == null || entity == null) {
+			return null;
+		}
+		
+		
+		if(entity.getNom() != null) {
+		     entity.setNom(domain.getNom());
+		}
+		
+		if(entity.getPrenom() != null) {
+		     entity.setPrenom(domain.getPrenom());
+		}
+		
+		if(entity.getSexe() != null) {
+		    entity.setSexe(domain.getSexe());
+	    }
+	
+		entity.setTelephone(domain.getTelephone()!=null ? domain.getTelephone():null);
 		return entity;
 	}
 	

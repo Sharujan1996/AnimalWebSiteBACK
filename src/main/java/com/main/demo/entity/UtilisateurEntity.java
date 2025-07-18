@@ -15,11 +15,7 @@ import jakarta.persistence.Table;
 @Table(name = "UTILISATEUR")
 public class UtilisateurEntity {
 	
-	public UtilisateurEntity() {
 		
-	}
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
 	@SequenceGenerator(name = "client_seq", sequenceName = "client_sequence", allocationSize = 1)
@@ -46,6 +42,11 @@ public class UtilisateurEntity {
 	
 	@Column(name = "PASSWORD" , nullable = false)
 	private String motDePasse;
+	
+	
+    public UtilisateurEntity() {
+		
+	}
 	
 	
 
